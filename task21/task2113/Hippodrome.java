@@ -43,6 +43,23 @@ public class Hippodrome {
         }
     }
 
+    public Horse getWinner() {
+        int size = getHorses().size();
+        double max = getHorses().get(0).getDistance();
+        int counter = 0;
+        for (int i = 1; i < size; i++) {
+            if (max < getHorses().get(i).getDistance()) {
+                max = getHorses().get(i).getDistance();
+                counter = i;
+            }
+        }
+        return getHorses().get(counter);
+    }
+
+    public void printWinner() {
+        System.out.println("Winner is " + getWinner().getName() + "!");
+    }
+
 
     public static void main (String[] args) throws InterruptedException {
         Horse horse1 = new Horse("horse1",3,0);
