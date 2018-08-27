@@ -1,5 +1,7 @@
 package com.javarush.task.task22.task2207;
 
+import java.io.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,7 +11,24 @@ import java.util.List;
 public class Solution {
     public static List<Pair> result = new LinkedList<>();
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        FileInputStream fis = new FileInputStream(br.readLine());
+        br.close();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+        StringBuilder sb = new StringBuilder();
+        String str;
+
+        while ((str = reader.readLine()) != null ) {
+            String[] arr = str.split(" ");
+            for (String value : arr) {
+                System.out.println(value);
+            }
+        }
+
+
 
     }
 
