@@ -1,20 +1,27 @@
 package com.javarush.task.task22.task2207;
 
+
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import java.io.*;
+import java.util.ArrayList;
+
 import java.util.LinkedList;
 import java.util.List;
 
 /* 
 Обращенные слова
 */
+
 public class Solution {
     public static List<Pair> result = new LinkedList<>();
     //public static
 
     public static void main(String[] args) throws IOException {
+
 
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         String fileName = reader.readLine();
@@ -59,6 +66,24 @@ public class Solution {
         for (Pair value : result) {
             System.out.println(value);
         }
+/*
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        FileInputStream fis = new FileInputStream(br.readLine());
+        br.close();
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(fis));
+        StringBuilder sb = new StringBuilder();
+        String str;
+
+        while ((str = reader.readLine()) != null ) {
+            String[] arr = str.split(" ");
+            for (String value : arr) {
+                System.out.println(value);
+            }
+        }
+
+
+*/
 
     }
 
