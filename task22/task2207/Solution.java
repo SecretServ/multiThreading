@@ -1,5 +1,9 @@
 package com.javarush.task.task22.task2207;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,14 +12,67 @@ import java.util.List;
 */
 public class Solution {
     public static List<Pair> result = new LinkedList<>();
+    //public static
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String fileName = reader.readLine();
+        reader.close();
+        FileInputStream fis = new FileInputStream(fileName);
+        InputStreamReader isr = new InputStreamReader(fis);
+        BufferedReader br = new BufferedReader(isr);
+        String str = null;
+        StringBuilder sb = new StringBuilder();
+        StringBuilder rsb = new StringBuilder();
+        while ((str = br.readLine()) != null) {
+            sb.append(str + " ");
+        }
+
+        String merge = sb.toString().trim();
+        String[] arr = merge.split(" ");
+        String[] rArr = new String[arr.length];
+
+        for (int i = 0; i < arr.length; i++) {
+            rArr[i] = rsb.append(arr[i]).reverse().toString();
+            rsb.delete(0, rsb.capacity());
+        }
+
+        int counter = 0;
+        for (int i = 0; i < arr.length - 1; i++) {
+            for (int j = 1; j < rArr.length; j++) {
+                if (arr[i].equals(rArr[j])) {
+                    counter++;
+                    if (counter % 2 == 0) {
+                        break;
+                    } else {
+                        Pair pair = new Pair();
+                        pair.first = arr[j];
+                        pair.second = arr[i];
+                        result.add(pair);
+                        break;
+                    }
+                }
+            }
+        }
+
+        for (Pair value : result) {
+            System.out.println(value);
+        }
 
     }
 
     public static class Pair {
         String first;
         String second;
+
+        Pair() {
+        }
+
+        /*Pair(String first, String second) {
+            this.first = first;
+            this.second = second;
+        }*/
 
         @Override
         public boolean equals(Object o) {
