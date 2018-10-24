@@ -2,35 +2,21 @@ package com.javarush.task.task24.task2409;
 
 import java.util.Collection;
 import java.util.LinkedList;
-import java.util.List;
-
-import static com.javarush.task.task24.task2409.Util.Company.Denim;
-import static com.javarush.task.task24.task2409.Util.Company.Levis;
 
 public class Util {
     protected static Collection<Object[]> jeansArray = new LinkedList<>();
 
     static {
-        jeansArray.add(new Object[]{1, Levis, 34, 6, 150.0});
-        jeansArray.add(new Object[]{2, Denim, 35, 8, 154.0});
+        jeansArray.add(new Object[]{1, Company.Levis, 34, 6, 150.0});
+        jeansArray.add(new Object[]{2, Company.Denim, 35, 8, 154.0});
         jeansArray.add(new Object[]{3, Company.Colins, 32, 6, 120.0});
         jeansArray.add(new Object[]{4, Company.CalvinKleinJeans, 31, 8, 125.0});
     }
 
     public static List<Jeans> getAllJeans() {
 
-        abstract class AbstractJeans implements Jeans {
-            @Override
-            public String toString() {
-                return "name{}";
-            }
-        }
-
-        abstract class Levis extends AbstractJeans {}
-        abstract class Denim extends AbstractJeans {}
-
-
         //add your code here
+
 
         List<Jeans> allJeans = new LinkedList<>();
 
@@ -43,12 +29,12 @@ public class Util {
 
             Jeans jeans = null;
             if (Company.Levis == company) {
-                jeans = new Levis(id, company, length, size, price);
+                jeans = new Levis(id, length, size, price);
             } else
-                if (Denim == company) {
-                    jeans = new Denim(id, company, length, size, price);
+                if (Company.Denim == company) {
+                    jeans = new Denim(id, length, size, price);
                 } else {
-                    jeans = new AbstractJeans(id, company, length, size, price) {
+                    jeans = new AbstractJeans(id, length, size, price) {
                         public String getTM() {
                             return company.fullName;
                         }
