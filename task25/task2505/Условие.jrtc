@@ -1,6 +1,4 @@
-taskKey="com.javarush.task.task25.task2505"
-
-Без дураков
+taskKey="com.javarush.task.task25.task2505"\n\nБез дураков
 
 1. Создай private class MyUncaughtExceptionHandler, который на перехват исключения должен подождать половину секунды,
 а затем вывести на экран secretKey, имя трэда и сообщение возникшего исключения.

@@ -18,12 +18,13 @@ public class Solution {
 
             String name;
             Thread t;
+            Throwable e;
 
            public MyUncaughtExceptionHandler() {
                try {
                    t = new Thread();
                    Thread.sleep(500);
-                   System.out.print(secretKey + ", " + Thread.currentThread().getName() + ", ");
+                   System.out.print(secretKey + ", " + Thread.currentThread().getName() + ", " + t + " " + MyUncaughtExceptionHandler.this.e);
                } catch (InterruptedException e) {
                    e.printStackTrace();
                } finally {
@@ -33,12 +34,14 @@ public class Solution {
 
             @Override
             public void uncaughtException(Thread t, Throwable e) {
+               this.t = t;
+               this.e = e;
             }
         }
 
         public MyThread(String secretKey) {
             this.secretKey = secretKey;
-            setUncaughtExceptionHandler(new MyUncaughtExceptionHandler());
+            this.setUncaughtExceptionHandler(new MyUncaughtExceptionHandler());
             setDaemon(false);
         }
 

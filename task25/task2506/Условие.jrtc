@@ -1,6 +1,4 @@
-taskKey="com.javarush.task.task25.task2506"
-
-Мониторинг состояния нити
+taskKey="com.javarush.task.task25.task2506"\n\nМониторинг состояния нити
 
 Cоздай класс нити LoggingStateThread,
 которая будет выводить в консоль все состояния (State) переданной в конструктор нити.

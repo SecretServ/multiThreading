@@ -3,6 +3,7 @@ package com.javarush.task.task25.task2506;
 /**
  * Created by Danver on 04.11.2018.
  */
+
 public class LoggingStateThread extends Thread {
 
     Thread thread;
@@ -10,20 +11,24 @@ public class LoggingStateThread extends Thread {
 
     public LoggingStateThread(Thread thread) {
         this.thread = thread;
-        this.state = thread.getState();
+        state = thread.getState();
     }
 
     public void run() {
-
-        //System.out.println(state);
-        //Thread.State state = thread.getState();
-        while (state != State.TERMINATED) {
-            System.out.println(state);
-            if (state == State.TERMINATED) {
-                return;
+        //super.run();
+        String stateTarget = new String();
+        while (true) {
+            if (!(stateTarget.equals(thread.getState().name()))) {
+                stateTarget = thread.getState().name();
+                System.out.println(stateTarget);
+                if (stateTarget.equals("TERMINATED")) {
+                    break;
+                }
             }
         }
-            Thread.currentThread().interrupt();
-            return;
     }
+
+
+
 }
+
