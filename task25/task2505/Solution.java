@@ -5,43 +5,20 @@ package com.javarush.task.task25.task2505;
 */
 public class Solution {
 
-
-    public static void main(String[] args) throws InterruptedException  {
+    public static void main(String[] args) {
         MyThread myThread = new Solution().new MyThread("super secret key");
         myThread.start();
     }
 
     public class MyThread extends Thread {
+
+
+
         private String secretKey;
-
-        private class MyUncaughtExceptionHandler implements UncaughtExceptionHandler {
-
-            String name;
-            Thread t;
-            Throwable e;
-
-           public MyUncaughtExceptionHandler() {
-               try {
-                   t = new Thread();
-                   Thread.sleep(500);
-                   System.out.print(secretKey + ", " + Thread.currentThread().getName() + ", " + t + " " + MyUncaughtExceptionHandler.this.e);
-               } catch (InterruptedException e) {
-                   e.printStackTrace();
-               } finally {
-                   System.out.println();
-               }
-           }
-
-            @Override
-            public void uncaughtException(Thread t, Throwable e) {
-               this.t = t;
-               this.e = e;
-            }
-        }
 
         public MyThread(String secretKey) {
             this.secretKey = secretKey;
-            this.setUncaughtExceptionHandler(new MyUncaughtExceptionHandler());
+            setUncaughtExceptionHandler(new MyUncaughtExceptionHandler());
             setDaemon(false);
         }
 
@@ -49,7 +26,21 @@ public class Solution {
         public void run() {
             throw new NullPointerException("it's an example");
         }
+
+        private class MyUncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {
+            @Override
+            public void uncaughtException(Thread t, Throwable e) {
+                try {
+                    Thread.sleep(500);
+                }catch (InterruptedException ex){}
+
+                System.out.println(String.format("%s, %s, %s", MyThread.this.secretKey, t.getName(), e.getMessage()));
+            }
+
+
+        }
     }
 
-}
 
+
+}
