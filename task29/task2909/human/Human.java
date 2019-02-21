@@ -8,7 +8,7 @@ public class Human implements Alive {
     public static int nextId = 0;
     private int id;
     protected int age;
-    protected String name;
+    public String name;
     //private int course;
 
     protected int[] size;
@@ -102,5 +102,13 @@ public class Human implements Alive {
     @Override
     public void live() {
 
+    }
+
+    public String getPosition() {
+        return "Человек";
+    }
+
+    public void printData() {
+        System.out.println(this.getPosition() + ": " + name);
     }
 }

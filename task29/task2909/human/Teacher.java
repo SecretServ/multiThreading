@@ -3,15 +3,17 @@ package com.javarush.task.task29.task2909.human;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Teacher extends Human {
+public class Teacher extends UniversityPerson {
     //private List<Human> children = new ArrayList<>();
     private int numberOfStudents;
-    private String university;
+    public String name;
+    public int age;
+    //private String university;
 
     public Teacher(String name, int age, int numberOfStudents) {
-        super();
-        this.name = name;
-        this.age = age;
+        super(name, age);
+        //super.name = name;
+        //super.age = age;
         this.numberOfStudents = numberOfStudents;
     }
 
@@ -30,15 +32,20 @@ public class Teacher extends Human {
     public void teach() {
     }
 
-    public String getUniversity() {
+    /*public String getUniversity() {
         return university;
     }
 
     public void setUniversity(String university) {
         this.university = university;
+    }*/
+
+    /*public void printData() {
+        System.out.println(getPosition() + ": " + name);
+    }*/
+    @Override
+    public String getPosition() {
+        return "Преподаватель";
     }
 
-    public void printData() {
-        System.out.println("Преподаватель: " + name);
-    }
 }
