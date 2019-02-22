@@ -5,29 +5,48 @@ import java.util.Collections;
 import java.util.List;
 
 public class Human implements Alive {
-    public static int nextId = 0;
+    private static int nextId = 0;
     private int id;
     protected int age;
     public String name;
     //private int course;
 
-    protected int[] size;
+    //protected int[] size;
+    protected Size size;
 
     //protected boolean isSoldier;
 
-    public static final int FIRST = 1;
+    /*public static final int FIRST = 1;
     public static final int SECOND = 2;
     public static final int THIRD = 3;
-    public static final int FOURTH = 4;
-    private int bloodGroup;
+    public static final int FOURTH = 4;*/
+    private BloodGroup bloodGroup;
 
-    public void setBloodGroup(int code) {
-        bloodGroup = code;
-    }
-
-    public int getBloodGroup() {
+    public BloodGroup getBloodGroup() {
         return bloodGroup;
     }
+
+    public void setBloodGroup(BloodGroup bloodGroup) {
+        this.bloodGroup = bloodGroup;
+    }
+
+    /*public void setBloodGroup(int code) {
+        switch (code) {
+            case 1 : bloodGroup.first();
+            break;
+            case 2 : bloodGroup.second();
+            break;
+            case 3 : bloodGroup.third();
+            break;
+            case 4 : bloodGroup.fourth();
+            break;
+            default : break;
+        }
+    }
+
+    public BloodGroup getBloodGroup() {
+        return bloodGroup;
+    }*/
 
     /*********************************************************************************/
     private List<Human> children = new ArrayList<>();
@@ -48,6 +67,7 @@ public class Human implements Alive {
     public Human(String name, int age) {
         this.name = name;
         this.age = age;
+        //this.id = id;
     }
 
     public Human() {
@@ -91,12 +111,12 @@ public class Human implements Alive {
         return id;
     }
 
-    public void setId(int id) {
+    /*public void setId(int id) {
         this.id = id;
-    }
+    }*/
 
     public void printSize() {
-        System.out.println("Рост: " + size[0] + " Вес: " + size[1]);
+        System.out.println("Рост: " + size.height + " Вес: " + size.weight);
     }
 
     @Override
@@ -110,5 +130,15 @@ public class Human implements Alive {
 
     public void printData() {
         System.out.println(this.getPosition() + ": " + name);
+    }
+
+    public class Size {
+        public int height;
+        public int weight;
+
+        public Size(int height, int weight) {
+            this.height = height;
+            this.weight = weight;
+        }
     }
 }
