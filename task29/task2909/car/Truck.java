@@ -4,7 +4,8 @@ public class Truck extends Car {
     public int numberOfPassengers;
 
     public Truck (int numberOfPassengers) {
-        this.numberOfPassengers = numberOfPassengers;
+        //this.numberOfPassengers = numberOfPassengers;
+        super(Car.TRUCK, numberOfPassengers);
     }
 
     public int getMaxSpeed() {

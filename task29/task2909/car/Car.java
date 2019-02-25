@@ -87,15 +87,12 @@ public abstract class Car {
     }*/
     /*********************************************************************/
     public int getNumberOfPassengersCanBeTransferred() {
-        int value = 0;
         if (canPassengersBeTransferred()) {
-            value =  numberOfPassengers;
-        } else if (!canPassengersBeTransferred()){
-            value = 0;
+            return numberOfPassengers;
+        } else {
+            return 0;
         }
-        return value;
     }
-
 
     public boolean isDriverAvailable() {
         return driverAvailable;
@@ -116,23 +113,19 @@ public abstract class Car {
     }*/
     /************************************************************/
     public void startMoving() {
-        if (driverAvailable || numberOfPassengers == 0) {
+        //if (driverAvailable) {
             fastenDriverBelt();
-            if (numberOfPassengers > 0 && driverAvailable) {
-                fastenPassengersBelts();
-            }
+            if (numberOfPassengers > 0) fastenPassengersBelts();
         }
-    }
+
 
 
     private boolean canPassengersBeTransferred() {
-        boolean bool;
         if (driverAvailable && fuel > 0) {
-            bool = true;
+            return true;
         } else {
-            bool = false;
+            return false;
         }
-        return bool;
     }
 
     public void fastenPassengersBelts() {
