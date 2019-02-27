@@ -2,9 +2,8 @@ package com.javarush.task.task26.task2601;
 
 //import java.lang.reflect.Array;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Collections;
+import java.util.Comparator;
 
 /*
 Почитать в инете про медиану выборки
@@ -14,74 +13,128 @@ public class Solution {
     //public static int medi = 0;
 
     public static void main(String[] args) {
-        Integer[] array = {13, 8, 15, 5, 17};//new Integer[5];
-        //array = {13, 8, 15, 5, 17};
+        Integer[] array = {13, 8, 15, 5, 17};
         for (Integer value : array) {
             System.out.println(value);
         }
 
         System.out.println("After Sorting");
-        array = sort(array);
+        //array = sort(array);
 
         for (Integer value : array) {
             System.out.println(value);
         }
-
-        //System.out.println(medi);
-
-
     }
 
     public static Integer[] sort(Integer[] array) {
         int size = array.length;
         int medi;
-        int index;
         Integer[] newArray = new Integer[size];
 
-        //int medi = 0;
-        /*int index = array.length;
-        int tmp = 0;
-        for (int i = index - 1; i >= 0; i--) {
-            for (int j = i - 1; j >= 0; j--) {
-                if (array[i] > array[j]) {
-                    tmp = array[i];
-                    array[i] = array[j];
-                    array[j] = tmp;
+        Arrays.sort(array, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o2.compareTo(o1);
+            }
+        });
+
+        //Arrays.sort(array);
+
+        class SortedByMedi implements Comparator<Integer[]> {
+
+            public int compare(Integer[] obj1, Integer[] obj2) {
+
+
+                int value1  = obj1 - medi;
+                double price2 = obj2.getPrice();
+
+                if(price1 > price2) {
+                    return 1;
+                }
+                else if(price1 < price2) {
+                    return -1;
+                }
+                else {
+                    return 0;
                 }
             }
-        }*/
+        }
+
+        if (size % 2 == 0) {
+            medi = (array[(size - 1) / 2] + array[(size + 1) / 2]) / 2;
+            int tmp = size / 2;
+            int bigIndex = tmp;
+            int smallIndex = tmp - 1;
+
+            System.out.println("medi = " + medi);
+        } else {
+            int index = (size - 1) / 2;
+            medi = array[index];
+        }
+        return newArray;
+    }
+
+    /*public static Integer[] sort(Integer[] array) {
+        int size = array.length;
+        int medi;
+        Integer[] newArray = new Integer[size];
 
         Arrays.sort(array);
 
         if (size % 2 == 0) {
-            medi = (array[size / 2] + array[size / 2 + 1]) / 2;
+            medi = (array[(size - 1) / 2] + array[(size + 1) / 2]) / 2;
+            int tmp = size / 2;
+            int bigIndex = tmp;
+            int smallIndex = tmp - 1;
+
             System.out.println("medi = " + medi);
         } else {
+            int index = (size - 1) / 2;
+            medi = array[index];
+            System.out.println("medi = " + medi);
+            System.out.println("After Sorting");
+            //array = sort(array);
 
-            medi = array[(size - 1) / 2];
-            index = (size - 1) / 2;
-            newArray[0] = medi;
-            System.out.println("odd medi = " + medi);
-            System.out.println("medi index = " + index);
-
-            for (int i = 1, j = index + i; i <= index; i++) {
-                newArray[i] = array[index + i];
-                newArray[j] = array[index - i];
+            for (Integer value : array) {
+                System.out.println(value);
             }
 
-            /*for (int i = index, j = index; i < size & j >= 0; i++, j--) {
+            System.out.println("After SUPERsorting");
+
+            //int minDiapasone = Math.abs(medi - array[0]);
+            *//*int valueAtMinDiapasone = 0;
+            int indexAtMinDiapasone = 0;*//*
 
 
-            }*/
+            *//***********************************************************************************//*
+
+            for (int i = 0; i < size; i++) {
+
+                int minDiapasone = Math.abs(medi - array[i]);
+                int valueAtMinDiapasone = 0;
+                int indexAtMinDiapasone = 0;
+
+                *//*System.out.println("FirstMinDiapasone: " + minDiapasone);
+                System.out.println("FirstValueAtMinDiapasone: " + valueAtMinDiapasone);*//*
+
+                for (int j = i; j < size; j++) {
+                        //int tmp = Math.abs(medi - array[j]);
+                        if ((Math.abs(medi - array[j]) < minDiapasone) && array[j] != medi) {
+                            minDiapasone = Math.abs(medi - array[j]);
+                            valueAtMinDiapasone = array[j];
+                            indexAtMinDiapasone = j;
+                            System.out.println("minDiapasone: " + minDiapasone);
+                            System.out.println("valueAtMinDiapasone: " + valueAtMinDiapasone);
+                        }
+                }
+
+                newArray[i] = valueAtMinDiapasone;
+                array[indexAtMinDiapasone] = medi;
+            }
+
+            *//***********************************************************************************//*
+
         }
-
-
-
-        System.out.println(medi);
-
-        //System.out.println();
-
-        //implement logic here
         return newArray;
-    }
+    }*/
 }
