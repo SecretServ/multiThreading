@@ -28,13 +28,13 @@ public class Solution {
     public static Integer[] sort(Integer[] array) {
         int size = array.length;
         int medi;
-        Integer[] newArray = new Integer[size];
+        //Integer[] newArray = new Integer[size];
 
         Arrays.sort(array);
         //System.out.println("After Sorting");
-        for (Integer value : array) {
+        /*for (Integer value : array) {
             System.out.println(value);
-        }
+        }*/
 
         if (size % 2 == 0) {
             medi = (array[(size - 1) / 2] + array[(size + 1) / 2]) / 2;

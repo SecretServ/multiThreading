@@ -1,5 +1,6 @@
 package com.javarush.task.task26.task2602;
 
+import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -18,7 +19,7 @@ public class Solution {
         }
     }
 
-    public static class Soldier {
+    public static class Soldier implements Comparable<Soldier> {
         private String name;
         private int height;
 
@@ -26,5 +27,20 @@ public class Solution {
             this.name = name;
             this.height = height;
         }
+
+        @Override
+        public int compareTo(Soldier solder) {
+            if (this.height == solder.height) {
+                return 0;
+            } else if (this.height < solder.height) {
+                return 1;
+            } else {
+                return -1;
+            }
+        }
+
+        /*public int compareTo(Soldier solder) {
+            return height.compareTo(solder.height);
+        }*/
     }
 }
