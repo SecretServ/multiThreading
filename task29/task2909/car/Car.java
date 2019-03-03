@@ -90,7 +90,7 @@ public abstract class Car {
         int value = 0;
         if (canPassengersBeTransferred()) {
             value =  numberOfPassengers;
-        } else if (!canPassengersBeTransferred()){
+        } else {
             value = 0;
         }
         return value;
