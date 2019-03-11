@@ -41,61 +41,29 @@ public class Server {
 
         public String name;
 
+
         private String serverHandshake(Connection connection) throws IOException, ClassNotFoundException {
 
-            //Message message = connection.send();
             while(true) {
+
                 connection.send(new Message(MessageType.NAME_REQUEST, "qwerty"));
                 Message answer = connection.receive();
+                String ans = answer.getData();
                 if (answer.getType().equals(MessageType.USER_NAME)) {
-                    if (!answer.getData().isEmpty()){
-                        if (!connectionMap.containsKey(answer.getData())) {
-                            connectionMap.put(answer.getData(), connection);
-                            this.name = answer.getData();
+                    if (!ans.isEmpty()){
+                        if (!connectionMap.containsKey(ans)) {
+                            connectionMap.put(ans, connection);
+                            name = ans;
                             connection.send(new Message(MessageType.NAME_ACCEPTED));
-
-                        }
-                    } else {
-                        //connection.send(new Message(MessageType.NAME_REQUEST));
-                        break;
-                    }
-                } else {
-                    break;
-                }
-                //return name;
-            }
-
-
-            /*String name = null;
-            while(true) {
-                connection.send(new Message(MessageType.NAME_REQUEST));
-                if (connection.receive().getType() != MessageType.USER_NAME) {
-                    break;
-                } else {
-                    name = connection.receive().getData();
-                    Set<Map.Entry<String, Connection>> set = connectionMap.entrySet();
-                    for(Map.Entry<String, Connection> s : set){
-                        if (name.isEmpty() || !s.getKey().equals(name)) {
-                            connectionMap.put(name, connection);
                             return name;
-                        } else {
-                            connection.send(new Message(MessageType.NAME_REQUEST));
-                            break;
                         }
                     }
-
                 }
-                //return name;
-            }
-            return name;*/
+            }//While Cycle End
 
-            return name;
+        }//serverHandShakeEnd
 
-        }
-
-
-
-    }
+    } //Handler end
 
 
 
