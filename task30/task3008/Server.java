@@ -1,11 +1,15 @@
 package com.javarush.task.task30.task3008;
 
+import com.javarush.task.task30.task3008.client.Client;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
+
+import static com.javarush.task.task30.task3008.ConsoleHelper.writeMessage;
 
 public class Server {
 
@@ -28,6 +32,10 @@ public class Server {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        Client client = new Client();
+        client.run();
+        client.notify();
     }
 
 
@@ -41,12 +49,11 @@ public class Server {
 
         public String name;
 
-
         private String serverHandshake(Connection connection) throws IOException, ClassNotFoundException {
 
             while(true) {
 
-                connection.send(new Message(MessageType.NAME_REQUEST, "qwerty"));
+                connection.send(new Message(MessageType.NAME_REQUEST, "Enter your name please"));
                 Message answer = connection.receive();
                 String ans = answer.getData();
                 if (answer.getType().equals(MessageType.USER_NAME)) {
@@ -60,13 +67,58 @@ public class Server {
                     }
                 }
             }//While Cycle End
-
         }//serverHandShakeEnd
 
-    } //Handler end
+        private void notifyUsers(Connection connection, String userName) throws IOException {
+            Set<Map.Entry<String, Connection>> set = connectionMap.entrySet();
+            for(Map.Entry<String, Connection> s : set){
+                if (!s.getKey().equals(userName)) {
+                    s.getValue().send(new Message(MessageType.USER_ADDED, userName));
+                    connection.send(new Message(MessageType.USER_ADDED, s.getKey()));
+                }
+            }
+        }
 
+        private void serverMainLoop(Connection connection, String userName) throws IOException, ClassNotFoundException {
 
+            while(true) {
+                Message answer = connection.receive();
+                if (answer.getType() == MessageType.TEXT) {
+                    sendBroadcastMessage(new Message(MessageType.TEXT, userName + ": " + answer.getData()));
+                } else {
+                    writeMessage("Error occured");
+                    //break;
+                }
+            }
+        }
 
+        public void run() {
+
+            try {
+                writeMessage("Соединение с удаленным адресом: " + socket.getRemoteSocketAddress() + " установлено");
+                Connection connection = new Connection(socket);
+                String userName = serverHandshake(connection);
+                sendBroadcastMessage(new Message(MessageType.USER_ADDED, userName));
+                notifyUsers(connection, userName);
+                serverMainLoop(connection, userName);
+                if (!userName.isEmpty()) {
+                    Set<Map.Entry<String, Connection>> set = connectionMap.entrySet();
+                    for(Map.Entry<String, Connection> s : set){
+                        if (s.getKey().equals(userName)) {
+                            connectionMap.remove(s.getKey(), s.getValue());
+                            sendBroadcastMessage(new Message(MessageType.USER_REMOVED, userName));
+                            connection.close();
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                writeMessage("Произошла ошибка при обмене данными с удаленным адресом");
+            } finally {
+                writeMessage("Соединение с удаленным сервером закрыто");
+            }
+        }//end of RUN method
+
+    } //Handler CLASS end
 
     private static Map<String, Connection> connectionMap = new ConcurrentHashMap<String, Connection>();
 

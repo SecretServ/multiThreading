@@ -11,7 +11,6 @@ public class ConsoleHelper {
     }
 
     public static String readString() {
-
             while (true) {
                 try {
                 return bufferedReader.readLine();
