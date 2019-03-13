@@ -33,9 +33,7 @@ public class Server {
             e.printStackTrace();
         }
 
-        Client client = new Client();
-        client.run();
-        client.notify();
+
     }
 
 
