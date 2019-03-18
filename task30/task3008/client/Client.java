@@ -129,11 +129,6 @@ public class Client {
                 g.printStackTrace();
                 notifyConnectionStatusChanged(false);
             }
-
-
-
-
-
         }
 
     } //SocketThread CLASS end
