@@ -6,9 +6,32 @@ import java.util.Set;
 
 public class ClientGuiModel {
 
-    protected final Set<String> allUserNames = new HashSet<>();
-    public String newMessage;
-    public HashSet<String> getAllUserNames() {
-        //return Collections.unmodifiableSet(allUserNames);
+    private final Set<String> allUserNames = new HashSet<>();
+
+    private String newMessage;
+
+    public Set<String> getAllUserNames() {
+
+        Set<String> newSet = Collections.unmodifiableSet(allUserNames);
+        return newSet;
+
+        //return (HashSet<String>) Collections.unmodifiableSet(allUserNames);
     }
+    public String getNewMessage() {
+        return newMessage;
+    }
+
+    public void setNewMessage(String str) {
+        newMessage = str;
+    }
+
+    public void addUser(String newUserName) {
+            allUserNames.add(newUserName);
+    }
+
+    public void deleteUser(String userName) {
+        allUserNames.remove(userName);
+    }
+
+
 }
